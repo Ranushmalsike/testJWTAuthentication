@@ -59,7 +59,7 @@ npm run test:e2e
 ```sh
 npm run lint
 ```
-============ Append detail by mine ===========
+============ Append detail by mine ===========>>
 This example will include a login page, a protected dashboard, and the necessary setup for handling JWTs.
 Let's break this down into steps:
 
