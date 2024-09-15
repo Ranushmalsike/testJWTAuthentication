@@ -76,8 +76,30 @@ explain how this all works together:
 03. The Dashboard component displays user information and has a logout button. When logging out, it clears the stored data and redirects to the login page.
 04. The router (index.js) sets up the routes and includes a navigation guard. This guard checks if a route requires authentication and redirects accordingly.
 05. In a real application, you would include the JWT token in the Authorization header for API requests. You could create an axios instance or a custom fetch function like this:
+-----------------------------------------------
+const apiCall = async (url, options = {}) => {
+  const token = authService.getToken();
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options.headers,
+  };
 
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
 
+  const response = await fetch(url, {
+    ...options,
+    headers,
+  });
+
+  if (!response.ok) {
+    throw new Error('API call failed');
+  }
+
+  return response.json();
+};
+------------------------------------------------
 When you run the project, you'll be redirected to the login page. Use the email "user@example.com" and password "password" to log in. You'll then be taken to the dashboard where you can see the user information and log out.
 
 Remember, this is a simplified example. In a real-world application, you'd want to add error handling, loading states, and connect to a real backend API instead of using mock data.
